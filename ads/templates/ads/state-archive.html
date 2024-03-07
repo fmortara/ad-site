@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- State Archive Section Start -->
+<section class="featured section-padding">
+  <div class="container"><br>
+    <h1 class="section-title">Classificados <br> <span class="focus-keyword">{{ state.state_name }}</span> </h1>
+    <div class="row">
+      {% if ads_by_state %}
+      {% for ads in ads_by_state %}
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+          <div class="featured-box w3-hover-shadow">
+            <figure>
+              <a href="{% url 'ads-detail' ads.id %}">
+                  {% for img in ads.adsimages_set.all %}
+                  {% if forloop.first %}
+                      <img style="float: left; width: 390px; height: 260px; object-fit: contain;" class="img-fluid" src="{{ img.image.url }}" alt="">
+                  {% endif %}
+                  {% endfor %}
+              </a>
+            </figure>
+            <div class="feature-content">
+              <h4><a href="{% url 'ads-detail' ads.id %}">{{ ads.title}}</a></h4>
+              <span>Postado: {{ ads.date_created}}</span>
+              <ul>
+                <li>
+                  <i class="lni-map-marker"></i>&nbsp;{{ ads.state}}
+                </li>
+                <li>
+                  <i class="lni-user"></i>&nbsp;{{ ads.author }}
+                </li>
+                <li>
+                  <i class="lni-package"></i>&nbsp;{{ ads.condition }}
+                </li>
+              </ul>
+              <div class="listing-bottom">
+                <h3 class="price float-left">R$ {{ ads.price }}</h3>
+                <p class="btn-verified float-right"><i class="lni-check-box"></i> Anúncio Verificado
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      {% else %}
+        <div class="container">
+          <div class="col-lg-12">
+            <h4 class="text-center">Não foram encontrados anúncios nessa UF</h4>
+          </div>
+        </div>
+      {% endif %}    
+    </div>
+  </div>
+</section>
+<!-- State Archive Section End -->
+
+
+{% endblock content %}

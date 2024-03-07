@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Latest Ads Listing Section Start -->
+<section class="featured section-padding">
+  <div class="container">
+    
+    <div class="row">
+      
+      {% if ads_search_result %}
+      <div class="col-lg-12"><br>
+        <h1 class="section-title">Encontramos os seguintes anúncios para você</h1>
+      </div>
+      <div class="row">
+      {% for ad_search in ads_search_result %}
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+          <div class="featured-box w3-hover-shadow">
+
+            <figure>
+              <a href="{% url 'ads-detail' ad_search.id %}">
+                  {% for img in ad_search.adsimages_set.all %}
+                  {% if forloop.first %}
+                      <img class="img-fluid" src="{{ img.image.url }}" alt="">
+                  {% endif %}
+                  {% endfor %}
+              </a>
+            </figure>
+            
+            <div class="feature-content">
+              <div class="product">
+                  <a href="{% url 'category-archive' ad_search.category.slug %}"><i class="lni-folder"></i>{{ ad_search.category.category_name }}</a>
+
+              </div>
+              <h4><a href="{% url 'ads-detail' ad_search.id %}">{{ ad_search.title }}</a></h4>
+              <span>Criado em: {{ ad_search.date_created }}</span>
+              <ul>
+                <li>
+                  <i class="lni-map-marker"></i>&nbsp;{{ ad_search.state }}
+                </li>
+                <li>
+                  <i class="lni-user"></i> &nbsp;{{ ad_search.author.user }}
+                </li>
+                <li>
+                  <i class="lni-package"></i>&nbsp;{{ ad_search.condition }}
+                </li>
+              </ul>
+              <div class="listing-bottom">
+                <h3 class="price float-left">R$ {{ ad_search.price }}</h3>
+                <p class="btn-verified float-right"><i class="lni-check-box"></i> Anúncio Verificado</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+        <div class="container">
+          <div class="col-lg-12">
+            <br><br>
+            <h4 class="text-center">Não há anúncios que correspondem à sua consulta.</h4>
+          </div>
+        </div>
+      {% endif %}
+      
+    </div>
+  </div>
+</section>
+<!-- Latest Ads Listing Section End -->
+
+
+{% endblock content %}

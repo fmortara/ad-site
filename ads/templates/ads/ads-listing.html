@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<script>
+  function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("listaAnuncios");
+    switching = true;
+    // Set the sorting direction to ascending:
+    dir = "asc";
+    /* Make a loop that will continue until
+    no switching has been done: */
+    while (switching) {
+      // Start by saying: no switching is done:
+      switching = false;
+      rows = table.rows;
+      /* Loop through all table rows (except the
+      first, which contains table headers): */
+      for (i = 1; i < (rows.length - 1); i++) {
+        // Start by saying there should be no switching:
+        shouldSwitch = false;
+        /* Get the two elements you want to compare,
+        one from current row and one from the next: */
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        /* Check if the two rows should switch place,
+        based on the direction, asc or desc: */
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        /* If a switch has been marked, make the switch
+        and mark that a switch has been done: */
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        // Each time a switch is done, increase this count by 1:
+        switchcount ++;
+      } else {
+        /* If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again. */
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+</script>
+
+<!-- Page Header Start -->
+<div class="page-header" style="background: url(assets/img/banner1.jpg);">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="breadcrumb-wrapper">
+          <h2 class="product-title">Lista de Anúncios</h2>
+          <!-- <ol class="breadcrumb">
+            <li><a href="#">Home /</a></li>
+            <li class="current">Listings</li>
+          </ol> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Inicio da apresentaçao em tabela -->
+
+<div class="container">
+<table id="listaAnuncios" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Foto</th>
+      <th onclick="sortTable(1)" scope="col" style="cursor: pointer;" >Item</th>
+      <th onclick="sortTable(2)" scope="col" style="cursor: pointer;">Categoria</th>
+      <th scope="col" style="text-align: right;">Preço</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ad_listing in ads_listing %}
+    <tr>
+      {% for img in ad_listing.adsimages_set.all %}
+         {% if forloop.first %}
+            <td><a href="{% url 'ads-detail' ad_listing.id %}"><img class="img-fluid" style="height: 65px;" src="{{ img.image.url }}" alt=""></a></td>
+         {% endif %}
+         {% endfor %}
+      <td><a href="{% url 'ads-detail' ad_listing.id %}"> {{ ad_listing.title }}</a></td>
+      <td>{{ ad_listing.category }}</td>
+      <td style="text-align: right;">R$ {{ ad_listing.price }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+        <!-- Product filter Start -->
+        <!-- <div class="product-filter">
+          <div class="short-name">
+            <span>Showing (1 - 12 products of 7371 products)</span>
+          </div>
+          <div class="Show-item">
+            <span>Show Items</span>
+            <form class="woocommerce-ordering" method="post">
+              <label>
+                <select name="order" class="orderby">
+                  <option selected="selected" value="menu-order">49 items</option>
+                  <option value="popularity">popularity</option>
+                  <option value="popularity">Average ration</option>
+                  <option value="popularity">newness</option>
+                  <option value="popularity">price</option>
+                </select>
+              </label>
+            </form>
+          </div>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#grid-view"><i class="lni-grid"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#list-view"><i class="lni-list"></i></a>
+            </li>
+          </ul>
+        </div> -->
+        <!-- Product filter End -->
+
+        <!-- Adds wrapper Start -->
+
+        <!-- Start Pagination -->
+        <!-- <div class="pagination-bar">
+          <nav>
+            <ul class="pagination justify-content-center">
+              <li class="page-item"><a class="page-link active" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
+        </div> -->
+        <!-- End Pagination -->
+
+
+<!-- Main container End -->
+
+{% endblock content %}

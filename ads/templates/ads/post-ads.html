@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<!-- Page Header Start -->
+<div class="page-header" style="background: url('img/banner1.jpg');">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="breadcrumb-wrapper">
+          <h2 class="product-title">Postar seu anúncio</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Start Content -->
+<div id="content" class="section-padding">
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <div class="col-lg-5 col-md-12 col-xs-12">
+        {% if request.user.is_authenticated %}
+        <div class="row page-content">
+          <form action="" class="ads-form" id="ad-post-form">
+
+            <label>Título do Produto <span class="req-aseteric">*</span></label>
+            <input type="text" id="title" class="form-control ad-post-form"
+              placeholder="ex. Prensa hidráulica">
+            <div class="error-msg">
+              <div id="titlemsg"></div>
+            </div>
+
+            <label>Descrição do Produto <span class="req-aseteric">*</span></label>
+            <textarea rows="6" id="description" class="form-control ad-post-form"
+              placeholder="Incluir o máximo de detalhes possível"></textarea>
+            <div class="error-msg">
+              <div id="descriptionmsg"></div>
+            </div>
+
+            <label>Escolher a categoria do anúncio <span class="req-aseteric">*</span></label>
+            <div class="select ad-post-form">
+              <select id="category" name="category" class="form-control">
+                <option value="Rolamentos, Buchas, Engrenagens e Rodas">Rolamentos, Buchas, Engrenagens e Rodas</option>
+                <option value="Produtos Bioquímicos">Produtos Bioquímicos</option>
+                <option value="Empacotadeira e etiquetas">Empacotadeira e etiquetas</option>
+                <option value="Câmara de ar, pneus e acessórios">Câmara de ar, pneus e acessórios</option>
+                <option value="Materiais e Equipamentos Eletrônicos">Materiais e Equipamentos Eletrônicos</option>
+                <option value="Soldadeira, Cortadeira, Abrasivos">Soldadeira, Cortadeira, Abrasivos</option>
+                <option value="Material para Construção">Material para Construção</option>
+                <option value="Filtros e Purificadores Industriais">Filtros e Purificadores Industriais</option>
+                <option value="Equipamentos e Suprimentos de Segurança Industrial">Equipamentos e Suprimentos de Segurança Industrial</option>
+                <option value="Compostos Selantes">Compostos Selantes</option>
+                <option value="Bombas e Compressores">Bombas e Compressores</option>
+                <option value="Ferramentas">Ferramentas</option>
+                <option value="Produtos Químicos">Produtos Químicos</option>
+                <option value="Equipamentos e Suprimentos de Informática">Equipamentos e Suprimentos de Informática</option>
+                <option value="Instrumentos de Medição e Controle">Instrumentos de Medição e Controle</option>
+                <option value="Esteiras transportadoras e acessórios">Esteiras transportadoras e acessórios</option>
+                <option value="Motores e Acessórios">Motores e Acessórios</option>
+                <option value="Lubrificantes">Lubrificantes</option>
+                <option value="Elementos para transmissão">Elementos para transmissão</option>
+                <option value="Elementos e Acessorios de Conexão">Elementos e Acessorios de Conexão</option>
+                <option value="Válvulas, Atuadores e Acessórios">Válvulas, Atuadores e Acessórios</option>
+                <option value="Tubos, Canos, Dutos e Acessórios">Tubos, Canos, Dutos e Acessórios</option>
+                <option value="Materiais e Equipamentos Elétricos">Materiais e Equipamentos Elétricos</option>
+                <option value="Maquinário e Equipamentos Industriais">Maquinário e Equipamentos Industriais</option>
+                <option value="Embalagens e Recipientes de Armazenamento">Embalagens e Recipientes de Armazenamento</option>
+                <option value="Papéis Industriais">Papéis Industriais</option>
+                <option value="Tintas, Bases e Acabamentos">Tintas, Bases e Acabamentos</option>
+                <option value="Equipamentos para Movimentação de Materiais">Equipamentos para Movimentação de Materiais</option>
+                <option value="Equipamentos e Insumos de Laboratório">Equipamentos e Insumos de Laboratório</option>
+                <option value="Equipamentos e Suprimentos de Escritório">Equipamentos e Suprimentos de Escritório</option>
+                <option value="Equipamentos e Suprimentos de Limpeza">Equipamentos e Suprimentos de Limpeza</option>
+                <option value="Combustíveis">Combustíveis</option>
+                </select>
+            </div>
+            <div class="error-msg">
+              <div id="categorymsg"></div>
+            </div>
+
+            <label>Preço do Produto <span class="req-aseteric">*</span> <span class="h-text"> (Valor númérico,
+                Não usar o sinal R$.)</span></label>
+            <input type="number" id="price" class="form-control ad-post-form" placeholder="ex. 2500">
+            <div class="error-msg">
+              <div id="pricemsg"></div>
+            </div>
+
+            <label>Informe a condição do produto<span class="req-aseteric">*</span></label>
+            <div class="select ad-post-form">
+              <select id="condition" name="condition" class="form-control">
+                <option value="Novo">Novo</option>
+                <option value="Usado - semi-novo">Usado - semi-novo</option>
+                <option value="Usado - bom estado">Usado - bom estado</option>
+                <option value="Usado - requer reparos">Usado - requer reparos</option>
+                <option value="Sucata">Sucata</option>
+              </select>
+            </div>
+            <div class="error-msg">
+              <div id="conditionmsg"></div>
+            </div>
+
+            <label>Selecione a UF <span class="req-aseteric">*</span></label>
+            <div class="select ad-post-form">
+              <select id="state" name="state" class="form-control">
+
+                <option value="Acre">Acre</option>
+                <option value="Alagoas">Alagoas</option>
+                <option value="Amapá">Amapá</option>
+                <option value="Amazonas">Amazonas</option>
+                <option value="Bahia">Bahia</option>
+                <option value="Ceará">Ceará</option>
+                <option value="Distrito Federal">Distrito Federal</option>
+                <option value="Espírito Santo">Espírito Santo</option>
+                <option value="Goiás">Goiás</option>
+                <option value="Maranhão">Maranhão</option>
+                <option value="Mato Grosso">Mato Grosso</option>
+                <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                <option value="Minas Gerais">Minas Gerais</option>
+                <option value="Pará">Pará</option>
+                <option value="Paraná">Paraná</option>
+                <option value="Pernambuco">Pernambuco</option>
+                <option value="Piauí">Piauí</option>
+                <option value="Rio de Janeiro">Rio de Janeiro</option>
+                <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                <option value="Rondônia">Rondônia</option>
+                <option value="Roraima">Roraima</option>
+                <option value="Sant Catarina">Santa Catarina</option>
+                <option value="São Paulo">São Paulo</option>
+                <option value="Sergipe">Sergipe</option>
+                <option value="Tocantins">Tocantins</option>
+              </select>
+            </div>
+            <div class="error-msg">
+              <div id="statemsg"></div>
+            </div>
+
+            <label>Cidade <span class="req-aseteric">*</span></label>
+            <input type="text" id="city" class="form-control ad-post-form" placeholder="ex. Belo Horizonte">
+            <div class="error-msg">
+              <div id="citymsg"></div>
+            </div>
+
+            <label>Marca / Fabricante <span class="h-text">(Deixar em branco se não houver)</span></label>
+            <input type="text" id="brand" class="form-control ad-post-form" placeholder="ex. Samsung">
+            <div class="error-msg">
+              <div id="brandmsg"></div>
+            </div>
+
+            
+
+            <label>Telefone <span class="req-aseteric">*</span></label>
+            <input type="text" id="phone" class="form-control ad-post-form" placeholder="O melhor número para contato.">
+            <div class="error-msg">
+              <div id="phonemsg"></div>
+            </div>
+
+            <label>Postar url de Video <span class="h-text"> (Não use embed link. Deixar em branco se não houver)</span></label>
+            <input type="url" id="video" class="form-control ad-post-form"
+              placeholder="ex. https://www.youtube.com/watch?v=ooHvPr4Bk4I">
+            <label>Imagens do produto <span class="h-text"> (Max. 5 fotos. Tamanho até 3MB/foto.
+                Tipos de arquivo: jpeg, jpg & png.) </span></label>
+
+            <input type="file" multiple>
+
+            <button type="button" id="saveBtn" class="btn btn-common log-btn">Postar Anúncio</button>
+          </form>
+        </div>
+
+        <div class="success-msg">
+          <div id="formsuccessmsg" class="text-center"></div>
+        </div>
+
+        <div class="error-msg">
+          <div id="formerrmsg" class="text-center"></div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Content -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var files = []
+    FilePond.registerPlugin(FilePondPluginFileValidateSize);
+    FilePond.registerPlugin(FilePondPluginFileValidateType);
+    FilePond.setOptions({
+      allowMultiple: true,
+      labelIdle: 'Arraste os arquivos aqui ou <span class="filepond--label-action"> busque no disco </span>',
+      maxFiles: 5,
+      maxFileSize: '3MB'
+    })
+    const inputElement = document.querySelector('input[type="file"]');
+    const pond = FilePond.create(inputElement, {
+      acceptedFileTypes: ['image/png', 'image/jpeg'],
+      onaddfile: (err, fileItem) => {
+        if (!err) {
+          files.push(fileItem.file)
+        }
+        console.log(files)
+      },
+      onremovefile: (err, fileItem) => {
+        const index = files.indexOf(fileItem.file)
+        if (index > -1) {
+          files.splice(index, 1)
+        }
+        console.log(files)
+      }
+    });
+
+    var formData = new FormData();
+    $(document).on('click', '#saveBtn', function (e) {
+
+      if ($('#title').val() === "") {
+        $("#titlemsg").html("<div class='alert alert-danger'>Incluir Título</div>");
+      }
+
+      if ($('#description').val() === "") {
+        $("#descriptionmsg").html("<div class='alert alert-danger'>Incluir Descrição</div>");
+      }
+
+      if ($('#category').val() === "") {
+        $("#categorymsg").html("<div class='alert alert-danger'>Incluir categoria</div>");
+      }
+
+      if ($('#price').val() === "") {
+        $("#pricemsg").html("<div class='alert alert-danger'>Incluir preço - numérico</div>");
+      }
+
+      if ($('#condition').val() === "") {
+        $("#conditionmsg").html("<div class='alert alert-danger'>Informar condição</div>");
+      }
+
+      if ($('#state').val() === "") {
+        $("#statemsg").html("<div class='alert alert-danger'>Informar UF</div>");
+      }
+
+      if ($('#city').val() === "") {
+        $("#citymsg").html("<div class='alert alert-danger'>Informar Cidade</div>");
+      }
+
+      if ($('#phone').val() === "") {
+        $("#phonemsg").html("<div class='alert alert-danger'>Número de telefone para contato</div>");
+      }
+
+
+      formData.append('length', files.length)
+      formData.append('title', $('#title').val())
+      formData.append('description', $('#description').val())
+      formData.append('category', $('#category').val())
+      formData.append('price', $('#price').val())
+      formData.append('condition', $('#condition').val())
+      formData.append('state', $('#state').val())
+      formData.append('city', $('#city').val())
+      formData.append('brand', $('#brand').val())
+      formData.append('phone', $('#phone').val())
+      formData.append('video', $('#video').val())
+      for (var i = 0; i < files.length; i++) {
+        formData.append('images' + i, files[i])
+      }
+
+
+      formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+      $.ajax({
+        type: 'POST',
+        url: '{% url "post-ads" %}',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function () {
+          $("#formsuccessmsg").html(
+            "<div class='alert alert-success'>Anúncio postado. Aguardando aprovação para publicar.</div>"
+          );
+          // alert('The Ads has been posted successfully!')
+          $('#ad-post-form').each(function () {
+            this.reset(); //Here form fields will be cleared.
+          });
+          
+        },
+        error: function (xhr, errmsg, err) {
+          $("#formerrmsg").html(
+            "<div class='alert alert-danger'>Houve um ou mais erros. Por favor confira os campos obrigatórios.</div>"
+          );
+          // console.log(xhr.status + ":" + xhr.responseText)
+          // alert('Failed to post. Make sure you fill all the fields')
+
+
+        }
+      })
+    })
+    console.log(formData)
+  })
+</script>
+{% endblock content %}

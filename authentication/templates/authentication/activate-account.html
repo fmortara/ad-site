@@ -1,0 +1,21 @@
+{% extends "base-alt.html" %}
+{% load static %}
+{% block content %}
+<!-- Content section Start -->
+<section class="section-padding">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-12 col-md-12 col-xs-12">
+        <a href="{% url 'home' %}" class=""><img src="{% static 'images/site-logo.png' %}" 
+          style="margin: 0 auto; display: block;"  width='300'
+          alt=""></a>
+        <h3 class="text-center">Obrigado por juntar-se a nós.</h3>
+        <h5 class="text-center">
+        Sua conta foi ativada. Por favor <a href="{% url 'login' %}">faça o login</a> para continuar.
+        </h5>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Content section End -->
+{% endblock content %}

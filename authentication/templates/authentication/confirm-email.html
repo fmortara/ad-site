@@ -1,0 +1,7 @@
+{% autoescape off %}
+Olá {{ user.username }},
+Obrigado por registrar-se em Baia Site.
+Por favor, clique no link abaixo para confirmar e ativar seu registro.
+http://{{ domain }}{% url 'activate' uid=uid token=token %}
+Se você não fez o cadastro em nosso site, simplesmente ignore esta mensagem.
+{% endautoescape %}

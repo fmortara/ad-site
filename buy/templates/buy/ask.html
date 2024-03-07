@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+ 
+<!-- Page Header Start -->
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="breadcrumb-wrapper">
+          <h2 class="product-title">Pedido de mais informações sobre<br>{{ ads_detail.title }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Start Content -->
+<div id="content" class="section-padding">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-12 col-md-12 col-xs-12">
+          <form action="" method="post">
+              {% csrf_token %}
+              <table>
+                  {{ form.as_table }}
+              </table>
+              <input type="submit" value="Enviar" class="btn btn-common log-btn">
+           </form>        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Content -->
+{% endblock content %}

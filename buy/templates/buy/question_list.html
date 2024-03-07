@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+ 
+<!-- Page Header Start -->
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="breadcrumb-wrapper">
+          <h2 class="product-title">Aprovar Mensagens<br></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Start Content -->
+<div id="content" class="section-padding">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-12 col-md-12 col-xs-12">
+          {% if question_list or answer_list %}
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                          <th>Mensagem</th>
+                          <th>Nome</th>
+                          <th>Status</th>
+                      </tr>
+                  </thead>
+<form method="POST" action="" >
+    {% csrf_token %}
+              <tbody>
+                  {% for question in question_list %}
+                  <tr><td>
+                      {{ question.message }}
+                  </td>
+                      <td>
+                          {{ question.name }}
+                      </td>
+                  <td>
+                      <button class="badge align-right" type="submit" name="reprova" value="{{ question.id }}">REPROVAR</button>
+                  </td>
+                      </tr>
+                  {% endfor %}
+                  {% for answer in answer_list %}
+                  <tr><td>
+                      {{ answer.mensagem }}
+                  </td>
+                      <td>
+                          {{ answer.nome }}
+                      </td>
+                  <td>
+                      <button class="badge align-right" type="submit" name="reprova_a" value="{{ answer.id }}">REPROVAR</button>
+                  </td>
+                      </tr>
+                  {% endfor %}
+
+              </tbody>
+    <button class="badge align-right" type="submit" name="aprova" value="0">APROVAR RESTANTES</button>
+</form>
+              </table>
+          {% else %}
+              <P>Não há mensagens pendentes de aprovação.</P>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Content -->
+{% endblock content %}
